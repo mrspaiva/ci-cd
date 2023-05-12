@@ -19,14 +19,14 @@ jobs:
 
     steps:
       # setup for VM on ubuntu
-      - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js ${{ matrix.node-version }}
       # step default of github to make possible to use the actions in my project
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
       uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
+      with:
+        node-version: ${{ matrix.node-version }}
 
-      - run: yarn
-      - run: yarn lint
-      - run: yarn test
-      - run: yarn build
+    - run: yarn
+    - run: yarn lint
+    - run: yarn test
+    - run: yarn build
