@@ -1,0 +1,32 @@
+# name of ci/pipeline
+name: CI
+
+# trigger where the pipeline should be activated
+on:
+  push:
+    # '**' means that this pipeline will run on all branches of my project
+    branches: ['**']
+
+jobs:
+  ci:
+    # defines witch machine the build needs run on server
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        # defines witch node version the pipeline needs run to succeed the build
+        node-version: [12.x]
+
+    steps:
+      # setup for VM on ubuntu
+      - name: Use Node.Js ${{ matrix.node-version }}
+      # step default of github to make possible to use the actions in my project
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: yarn
+      - run: yarn lint
+      - run: yarn test
+      - run: yarn build
